@@ -163,3 +163,24 @@ impl From<TransactionKind> for reth_primitives::TransactionKind {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_into_transaction() {
+        let eip_1559 = EIP1559TransactionRequest {
+            chain_id: Default::default(),
+            nonce: Default::default(),
+            max_priority_fee_per_gas: Default::default(),
+            max_fee_per_gas: Default::default(),
+            gas_limit: Default::default(),
+            kind: TransactionKind::Create,
+            value: Default::default(),
+            input: Default::default(),
+            access_list: Default::default(),
+        };
+        let request = TypedTransactionRequest::EIP1559(eip_1559);
+        request.into_transaction();
+    }
+}
